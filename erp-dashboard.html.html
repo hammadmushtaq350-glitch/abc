@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Modern ERP Dashboard</title>
+  <!-- Google Fonts + Font Awesome 6 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f8fafc;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* --- MODERN NAVBAR (EXACTLY AS REQUESTED) --- */
+    .glass-nav {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 0 32px;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon i {
+      font-size: 20px;
+      color: white;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #f1f5f9, #cbd5e1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      padding: 8px 20px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-btn i {
+      font-size: 14px;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .nav-btn.active {
+      background: rgba(96,165,250,0.18);
+      color: #60a5fa;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .user-badge {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(4px);
+      padding: 6px 18px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-badge i {
+      color: #a78bfa;
+      font-size: 18px;
+    }
+
+    .user-badge span {
+      color: #f1f5f9;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* --- MAIN DASHBOARD LAYOUT --- */
+    .dashboard-wrapper {
+      max-width: 1400px;
+      margin: 28px auto 40px;
+      padding: 0 28px;
+    }
+
+    /* SECTION HEADINGS */
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-bottom: 22px;
+      padding-left: 14px;
+      border-left: 4px solid;
+      display: inline-block;
+    }
+    .hrms-section { border-left-color: #2563eb; }
+    .emp-section { border-left-color: #7c3aed; }
+
+    /* CARD GRID */
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .modern-card {
+      width: 280px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(4px);
+      border-radius: 28px;
+      padding: 24px 20px;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 12px 24px -12px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .modern-card:hover {
+      transform: translateY(-6px);
+      background: white;
+      box-shadow: 0 24px 36px -16px rgba(0,0,0,0.12);
+      border-color: rgba(37,99,235,0.2);
+    }
+
+    .card-icon {
+      font-size: 36px;
+      padding: 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .modern-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #0f172a;
+    }
+
+    .modern-card p {
+      font-size: 12px;
+      line-height: 1.45;
+      color: #475569;
+      margin-bottom: 20px;
+    }
+
+    .card-badge {
+      background: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 60px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #1f2937;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ICON COLORS */
+    .icon-blue { color: #2563eb; background: #eef4ff; }
+    .icon-teal { color: #0d9488; background: #f0fdfa; }
+    .icon-purple { color: #7c3aed; background: #f5f3ff; }
+    .icon-orange { color: #ea580c; background: #fff7ed; }
+    .icon-green { color: #16a34a; background: #f0fdf4; }
+    .icon-red { color: #dc2626; background: #fef2f2; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 32px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    @media (max-width: 780px) {
+      .glass-nav {
+        padding: 0 16px;
+      }
+      .nav-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-tabs {
+        justify-content: center;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+      .dashboard-wrapper {
+        padding: 0 16px;
+      }
+      .modern-card {
+        width: 100%;
+      }
+      .user-badge {
+        width: fit-content;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glass-nav">
+  <div class="nav-container">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fa-solid fa-chart-scatter"></i></div>
+      <div class="logo-text">My ERP System</div>
+    </div>
+    <div class="nav-tabs" id="dynamicTabs">
+      <!-- Tabs will be injected here via JS -->
+    </div>
+    <div class="user-badge">
+      <i class="fa-regular fa-user"></i>
+      <span>U0044 · Admin</span>
+      <i class="fa-solid fa-chevron-down" style="font-size: 12px;"></i>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-wrapper">
+  <!-- HRMS SETUP SECTION -->
+  <div>
+    <div class="section-title hrms-section">🏢 HRMS SETUP</div>
+    <div class="card-grid">
+      <div class="modern-card" data-page="101">
+        <div class="card-icon icon-blue"><i class="fa-regular fa-building"></i></div>
+        <h3>HR Setup</h3>
+        <p>Core HR configuration, policies, and organizational settings.</p>
+        <div class="card-badge">Configure <i class="fa-regular fa-arrow-right"></i></div>
+      </div>
+      <div class="modern-card" data-page="102">
+        <div class="card-icon icon-teal"><i class="fa-regular fa-users"></i></div>
+        <h3>Employee General</h3>
+        <p>Personal & contractual records management.</p>
+        <div class="card-badge">Manage <i class="fa-regular fa-arrow-right"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMPLOYEE MANAGEMENT SECTION -->
+  <div>
+    <div class="section-title emp-section">👥 EMPLOYEE MANAGEMENT</div>
+    <div class="card-grid">
+      <div class="modern-card" data-page="103">
+        <div class="card-icon icon-purple"><i class="fa-regular fa-id-card"></i></div>
+        <h3>Employee Official</h3>
+        <p>Official records, compliance & documents.</p>
+        <div class="card-badge">View <i class="fa-regular fa-arrow-right"></i></div>
+      </div>
+      <div class="modern-card" data-page="104">
+        <div class="card-icon icon-orange"><i class="fa-regular fa-layer-group"></i></div>
+        <h3>Employees Groups</h3>
+        <p>Groupings, roles, and departments.</p>
+        <div class="card-badge">Organize <i class="fa-regular fa-arrow-right"></i></div>
+      </div>
+      <div class="modern-card" data-page="105">
+        <div class="card-icon icon-green"><i class="fa-regular fa-check-circle"></i></div>
+        <h3>Employee Confirmation</h3>
+        <p>Probation tracking & confirmations.</p>
+        <div class="card-badge">Approve <i class="fa-regular fa-arrow-right"></i></div>
+      </div>
+      <div class="modern-card" data-page="106">
+        <div class="card-icon icon-red"><i class="fa-regular fa-chart-line"></i></div>
+        <h3>Promotion/Demotion</h3>
+        <p>Career progression & transitions.</p>
+        <div class="card-badge">Review <i class="fa-regular fa-arrow-right"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <i class="fa-regular fa-database"></i> Live connection · PESCO | 21-APR-2026 | U0044
+  </div>
+</div>
+
+<script>
+  // -----------------------------
+  // 1. Setup Navigation Tabs (HRMS, TMS, Leave ...)
+  // -----------------------------
+  const APP_ID = 286469;    // <---- YOUR APEX APP ID
+  const PAGES = [
+    { name: 'HRMS', page: 10, icon: 'fa-solid fa-building' },
+    { name: 'TMS', page: 20, icon: 'fa-solid fa-graduation-cap' },
+    { name: 'Leave', page: 30, icon: 'fa-solid fa-calendar-alt' },
+    { name: 'Payroll', page: 40, icon: 'fa-solid fa-coins' },
+    { name: 'Taxation', page: 50, icon: 'fa-solid fa-file-invoice-dollar' },
+    { name: 'Reports', page: 60, icon: 'fa-solid fa-chart-line' },
+    { name: 'ESS', page: 70, icon: 'fa-solid fa-user-check' },
+    { name: 'HRMS/TMS/Payroll', page: 80, icon: 'fa-solid fa-chart-simple' }
+  ];
+
+  function renderTabs() {
+    const container = document.getElementById('dynamicTabs');
+    if (!container) return;
+    const currentPath = window.location.pathname + window.location.search;
+    let currentPage = 10; // default
+    const match = window.location.href.match(/:(10|20|30|40|50|60|70|80):/);
+    if (match) currentPage = parseInt(match[1]);
+
+    let html = '';
+    for (let tab of PAGES) {
+      const isActive = (tab.page === currentPage);
+      const activeClass = isActive ? 'active' : '';
+      // Build apex link
+      const link = `f?p=${APP_ID}:${tab.page}`;
+      html += `<a href="${link}" class="nav-btn ${activeClass}">
+                <i class="${tab.icon}"></i> <span>${tab.name}</span>
+               </a>`;
+    }
+    container.innerHTML = html;
+  }
+
+  // -----------------------------
+  // 2. Connect Cards to APEX Pages (opening forms)
+  // -----------------------------
+  function attachCardEvents() {
+    const cards = document.querySelectorAll('.modern-card');
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        // don't bubble if inside badge
+        if(e.target.closest('.card-badge')) return;
+        const pageNum = card.getAttribute('data-page');
+        if(pageNum) {
+          window.location.href = `f?p=${APP_ID}:${pageNum}`;
+        }
+      });
+    });
+  }
+
+  // -----------------------------
+  // 3. ⚡ DYNAMIC DATA FROM APEX REST API (EXAMPLE)
+  //    Replace the endpoint and fields with yours.
+  // -----------------------------
+  async function fetchDashboardStats() {
+    try {
+      // STEP 1 – Create REST Service in APEX: SQL Workshop > RESTful Services
+      // Example endpoint (GET) – replace this with your ORDS URL
+      const apiUrl = 'https://your-apex-server/ords/your_schema/hr_dashboard/stats';
+      
+      // If your API requires authentication, use:
+      // const response = await fetch(apiUrl, {
+      //    headers: { 'Authorization': 'Basic ' + btoa('user:pass') }
+      // });
+      
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error('Network error');
+      const data = await response.json();
+      
+      // Example: update KPI widgets – customize based on your response
+      // document.getElementById('totalEmployees').innerText = data.items?.length || 0;
+      console.log('API Data received:', data);
+    } catch (error) {
+      console.warn('REST API not configured yet – working offline', error);
+      // Fallback static data can be shown.
+    }
+  }
+
+  // -----------------------------
+  // 4. INITIALISE
+  // -----------------------------
+  renderTabs();
+  attachCardEvents();
+  fetchDashboardStats();   // <-- Connects to Oracle Database via APEX REST
+</script>
+</body>
+</html>
